@@ -16,6 +16,9 @@ local function get_clangd_path()
 	return "clangd"
 end
 
+local capabilities =
+    vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), require("cmp_nvim_lsp").default_capabilities())
+
 -- TODO: add clang-tidy to on_atach with clangd
 return {
 	cmd = { get_clangd_path(),
@@ -37,8 +40,5 @@ return {
 	init_options = {
 		compilationDatabasePath = vim.fn.getcwd() .. "/build",
 	},
-	capabilities = local_cap,
-	commands = {
-
-	},
+	capabilities = capabilities,
 }
