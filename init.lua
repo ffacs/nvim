@@ -8,3 +8,4 @@ vim.opt.autoindent = true
 
 require("config.lazy")
 require('config.lsp').setup()
+require('config.snip')
