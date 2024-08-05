@@ -3,5 +3,6 @@ return {
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",
-	"lewis6991/gitsigns.nvim",
+	-- "lewis6991/gitsigns.nvim",
+  "tpope/vim-fugitive"
 }
