@@ -25,7 +25,6 @@ return {
 		"--background-index=false",
 		"--clang-tidy",
 		"--completion-style=bundled",
-		"--cross-file-rename",
 		"--enable-config", -- clangd 11+ supports reading from .clangd configuration file
 		"--header-insertion=never",
 		"--pch-storage=memory", -- could also be disk
