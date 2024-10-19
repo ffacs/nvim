@@ -4,5 +4,6 @@ return {
 	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",
 	-- "lewis6991/gitsigns.nvim",
-  "tpope/vim-fugitive"
+  "tpope/vim-fugitive",
+  "Yggdroot/LeaderF"
 }
