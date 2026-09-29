@@ -6,7 +6,8 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
-    "L3MON4D3/LuaSnip"
+    "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip"
   },
   -- Not all LSP servers add brackets when completing a function.
   -- To better deal with this, LazyVim adds a custom option to cmp,
