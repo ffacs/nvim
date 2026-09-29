@@ -1,6 +1,25 @@
 local function picker(name, opts)
   return function()
-    require("telescope.builtin")[name](opts or {})
+    require("telescope.builtin")[name](vim.deepcopy(opts or {}))
+  end
+end
+
+-- Symbol search requires an attached server with document-symbol support.
+-- Other buffers still get a useful text search without an LSP error.
+local function document_symbols(opts)
+  return function()
+    local builtin = require("telescope.builtin")
+    local bufnr = vim.api.nvim_get_current_buf()
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+      if client.initialized and client.supports_method("textDocument/documentSymbol", { bufnr = bufnr }) then
+        local current_opts = vim.deepcopy(opts or {})
+        current_opts.bufnr = bufnr
+        current_opts.winnr = vim.api.nvim_get_current_win()
+        builtin.lsp_document_symbols(current_opts)
+        return
+      end
+    end
+    builtin.current_buffer_fuzzy_find({ prompt_title = "Buffer text (LSP symbols unavailable)" })
   end
 end
 
@@ -25,8 +44,8 @@ return {
     { "<leader>fh", picker("help_tags"), desc = "Search: Help" },
     { "<leader>fb", picker("buffers"), desc = "Search: Buffers" },
     { "<leader>fr", picker("oldfiles"), desc = "Search: Recent files" },
-    { "<leader>f", picker("lsp_document_symbols", { symbols = { "function", "method", "constructor" } }), desc = "Search: Document functions (LSP)" },
-    { "<leader>o", picker("lsp_document_symbols"), desc = "Search: Document symbols (LSP)" },
-    { "<leader>ft", picker("lsp_document_symbols"), desc = "Search: Document symbols (LSP)" },
+    { "<leader>f", document_symbols({ symbols = { "function", "method", "constructor" } }), desc = "Search: Functions / buffer text" },
+    { "<leader>o", document_symbols(), desc = "Search: Symbols / buffer text" },
+    { "<leader>ft", document_symbols(), desc = "Search: Symbols / buffer text" },
   },
 }
