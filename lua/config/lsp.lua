@@ -16,7 +16,9 @@ servers.list = {
 
 servers.setup = function()
 	for _, server in pairs(servers.list) do
-		opts = {}
+		local opts = {
+			capabilities = require("cmp_nvim_lsp").default_capabilities(),
+		}
 
 		if server == "clangd" then
 			local clangd_opts = require("config.lsp.clangd")
